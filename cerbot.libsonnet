@@ -3,7 +3,7 @@ local newCerbotDeployment(domains = [],) = [
     apiVersion: "batch/v1beta1",
     kind: "CronJob",
     metadata: {
-      namespace: "foundation-internal-infra-apps",
+      namespace: "foundation-internal-infra-cerbot",
       name: "cerbot",
     },
     spec: {
@@ -108,7 +108,7 @@ local newCerbotDeployment(domains = [],) = [
     apiVersion: "v1",
     kind: "Service",
     metadata: {
-      namespace: "foundation-internal-infra-apps",
+      namespace: "foundation-internal-infra-cerbot",
       name: "cerbot",
     },
     spec: {
@@ -130,7 +130,7 @@ local newCerbotDeployment(domains = [],) = [
     apiVersion: "route.openshift.io/v1",
     kind: "Route",
     metadata: {
-      namespace: "foundation-internal-infra-apps",
+      namespace: "foundation-internal-infra-cerbot",
       name: "cerbot-%s" % std.strReplace(domain, ".", "-"),
     },
     spec: {
