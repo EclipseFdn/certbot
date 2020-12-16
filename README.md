@@ -24,10 +24,22 @@ Also, ensure that the `Host` header is set via a `proxy_set_header` directive (m
 ./gen-domains.sh | kubectl apply -f -
 ```
 
-## How to force issue/renewal of managed certificates?
+## How to manually trigger issue/renewal of managed certificates?
 
 ```
-kubectl create job --from=cronjob/cerbot certbot-manual-01
-kubectl wait --for=condition=complete job/certbot-manual-01
-kubectl delete job/certbot-manual-01
+JOB_NAME="certbot-manual-01"
+kubectl create job -n foundation-internal-infra-cerbot --from=cronjob/cerbot ${JOB_NAME}
+kubectl wait --for=condition=complete -n foundation-internal-infra-cerbot job/${JOB_NAME}
+```
+
+Optionnaly, check on the logs:
+
+```
+kubectl logs -n foundation-internal-infra-cerbot -l "job-name=${JOB_NAME}" -c certbot
+```
+
+Cleanup:
+
+```
+kubectl delete -n foundation-internal-infra-cerbot job/${JOB_NAME}
 ```
