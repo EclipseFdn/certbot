@@ -11,7 +11,7 @@ SCRIPT_FOLDER="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
 read -r -d '' PROG <<EOF || :
 local cerbot = import "${SCRIPT_FOLDER}/cerbot.libsonnet";
 std.manifestYamlStream(cerbot.newCerbotDeployment([
-  "certbot.eclipse.org", 
+  "certbot.eclipse.org",
 ]), false, false)
 EOF
 jsonnet -S -e "${PROG}"

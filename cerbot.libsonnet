@@ -7,7 +7,7 @@ local newCerbotDeployment(domains = [],) = [
       name: "cerbot",
     },
     spec: {
-      schedule: "25 4 5 * *",
+      schedule: "5 4 * * 3",
       concurrencyPolicy: "Forbid",
       jobTemplate: {
         spec: {
@@ -18,21 +18,59 @@ local newCerbotDeployment(domains = [],) = [
               },
             },
             spec: {
-              restartPolicy: "OnFailure",
+              restartPolicy: "Never",
+              initContainers: [
+                {
+                  name: "init0",
+                  image: "alpine",
+                  imagePullPolicy: "Always",
+                  command: [ "/bin/sh", ],
+                  args: [
+                    "-c",
+                    # The file will be served until certbot completes
+                    # it will then be removed, that will make the nginx
+                    # liveness probe fail
+                    "echo 1 > /usr/share/nginx/html/init",
+                  ],
+                  volumeMounts: [
+                    {
+                      mountPath: "/usr/share/nginx/html",
+                      name: "webroot",
+                    },
+                  ],
+                  resources: {
+                    requests: {
+                      memory: "64Mi",
+                      cpu: "50m"
+                    },
+                    limits: {
+                      memory: "64Mi",
+                      cpu: "100m"
+                    }
+                  },
+                },
+              ],
               containers: [
                 {
                   name: "certbot",
                   image: "certbot/certbot",
                   imagePullPolicy: "Always",
-                  command: [ "certbot", ],
+                  command: [ "/bin/sh", ],
+                  script:: |||
+                    certbot certonly \
+                    --webroot \
+                    --noninteractive \
+                    --agree-tos \
+                    --email webmaster@eclipse-foundation.org \
+                    --webroot-path /usr/share/nginx/html \
+                    %s \
+                    && rm -f /usr/share/nginx/html/init \
+                    || rm -f /usr/share/nginx/html/init
+                  ||| % std.join(" \\\n", std.flatMap(function(x) ["-d %s" % x], domains)),
                   args: [
-                    "certonly",
-                    "--webroot",
-                    "--noninteractive",
-                    "--agree-tos",
-                    "--email", "webmaster@eclipse-foundation.org",
-                    "--webroot-path", "/usr/share/nginx/html",
-                  ] + std.flatMap(function(x) ["-d", x], domains),
+                    "-c",
+                    self.script,
+                  ],
                   volumeMounts: [
                     {
                       mountPath: "/usr/share/nginx/html",
@@ -40,17 +78,30 @@ local newCerbotDeployment(domains = [],) = [
                     },
                     {
                       mountPath: "/var/log/letsencrypt",
-                      name: "logsdir",
+                      name: "letsencrypt",
+                      subPath: "log",
                     },
                     {
                       mountPath: "/etc/letsencrypt",
-                      name: "configdir",
+                      name: "letsencrypt",
+                      subPath: "etc",
                     },
                     {
                       mountPath: "/var/lib/letsencrypt",
-                      name: "workdir",
+                      name: "letsencrypt",
+                      subPath: "lib",
                     },
                   ],
+                  resources: {
+                    requests: {
+                      memory: "1Gi",
+                      cpu: "500m"
+                    },
+                    limits: {
+                      memory: "1Gi",
+                      cpu: "2000m"
+                    }
+                  },
                 },
                 {
                   name: "nginx",
@@ -70,13 +121,21 @@ local newCerbotDeployment(domains = [],) = [
                   ],
                   resources: {
                     requests: {
-                      memory: "1Gi",
-                      cpu: "500m"
+                      memory: "256Mi",
+                      cpu: "50m"
                     },
                     limits: {
-                      memory: "1Gi",
-                      cpu: "2000m"
+                      memory: "256Mi",
+                      cpu: "200m"
                     }
+                  },
+                  livenessProbe: {
+                    initialDelaySeconds: 5,
+                    periodSeconds: 3,
+                    httpGet: {
+                      path: "/init",
+                      port: 8080,
+                    },
                   },
                 },
               ],
@@ -86,16 +145,10 @@ local newCerbotDeployment(domains = [],) = [
                   emptyDir: {},
                 },
                 {
-                  name: "workdir",
-                  emptyDir: {},
-                },
-                {
-                  name: "logsdir",
-                  emptyDir: {},
-                },
-                {
-                  name: "configdir",
-                  emptyDir: {},
+                  name: "letsencrypt",
+                  persistentVolumeClaim: {
+                    claimName: "letsencrypt",
+                  },
                 },
               ],
             },
@@ -131,7 +184,7 @@ local newCerbotDeployment(domains = [],) = [
     kind: "Route",
     metadata: {
       namespace: "foundation-internal-infra-cerbot",
-      name: "cerbot-%s" % std.strReplace(domain, ".", "-"),
+      name: "acme-challenge-%s" % std.strReplace(domain, ".", "-"),
     },
     spec: {
       host: domain,
