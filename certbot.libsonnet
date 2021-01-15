@@ -73,7 +73,7 @@ local newCertbotDeployment(certs = {},) = [
                     ] for certName in std.objectFields(certs)
                   ],
                   args: [
-                    "-xc",
+                    "-c",
                     "{ \\\n" 
                     + std.join("; \\\n", self.scripts) 
                     + "; \\\n"
