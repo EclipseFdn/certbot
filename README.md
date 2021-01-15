@@ -1,4 +1,4 @@
-# Cerbot on OKD
+# Certbot on OKD
 
 ## How to add a domain?
 
@@ -28,18 +28,18 @@ Also, ensure that the `Host` header is set via a `proxy_set_header` directive (m
 
 ```
 JOB_NAME="certbot-manual-01"
-kubectl create job -n foundation-internal-infra-cerbot --from=cronjob/cerbot ${JOB_NAME}
-kubectl wait --for=condition=complete -n foundation-internal-infra-cerbot job/${JOB_NAME}
+kubectl create job -n foundation-internal-infra-certbot --from=cronjob/certbot ${JOB_NAME}
+kubectl wait --for=condition=complete -n foundation-internal-infra-certbot job/${JOB_NAME}
 ```
 
 Optionnaly, check on the logs:
 
 ```
-kubectl logs -n foundation-internal-infra-cerbot -l "job-name=${JOB_NAME}" -c certbot
+kubectl logs -n foundation-internal-infra-certbot -l "job-name=${JOB_NAME}" -c certbot
 ```
 
 Cleanup:
 
 ```
-kubectl delete -n foundation-internal-infra-cerbot job/${JOB_NAME}
+kubectl delete -n foundation-internal-infra-certbot job/${JOB_NAME}
 ```

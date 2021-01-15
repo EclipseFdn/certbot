@@ -1,10 +1,10 @@
-local newCerbotDeployment(domains = [],) = [
+local newCertbotDeployment(domains = [],) = [
   {
     apiVersion: "batch/v1beta1",
     kind: "CronJob",
     metadata: {
-      namespace: "foundation-internal-infra-cerbot",
-      name: "cerbot",
+      namespace: "foundation-internal-infra-certbot",
+      name: "certbot",
     },
     spec: {
       schedule: "5 4 * * 3",
@@ -161,8 +161,8 @@ local newCerbotDeployment(domains = [],) = [
     apiVersion: "v1",
     kind: "Service",
     metadata: {
-      namespace: "foundation-internal-infra-cerbot",
-      name: "cerbot",
+      namespace: "foundation-internal-infra-certbot",
+      name: "certbot",
     },
     spec: {
       selector: {
@@ -183,7 +183,7 @@ local newCerbotDeployment(domains = [],) = [
     apiVersion: "route.openshift.io/v1",
     kind: "Route",
     metadata: {
-      namespace: "foundation-internal-infra-cerbot",
+      namespace: "foundation-internal-infra-certbot",
       name: "acme-challenge-%s" % std.strReplace(domain, ".", "-"),
     },
     spec: {
@@ -194,7 +194,7 @@ local newCerbotDeployment(domains = [],) = [
       },
       to: {
         kind: "Service",
-        name: "cerbot",
+        name: "certbot",
         weight: 100
       }
     }
@@ -202,5 +202,5 @@ local newCerbotDeployment(domains = [],) = [
 ];
 
 {
-  newCerbotDeployment:: newCerbotDeployment,
+  newCertbotDeployment:: newCertbotDeployment,
 }
