@@ -7,11 +7,11 @@ set -o pipefail
 
 IFS=$'\n\t'
 SCRIPT_FOLDER="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
+DOMAINS="${1}"
 
 read -r -d '' PROG <<EOF || :
 local certbot = import "${SCRIPT_FOLDER}/certbot.libsonnet";
-std.manifestYamlStream(certbot.newCertbotDeployment([
-  "certbot.eclipse.org",
-]), false, false)
+local certs = import "${DOMAINS}";
+std.manifestYamlStream(certbot.newCertbotDeployment(certs), false, false)
 EOF
 jsonnet -S -e "${PROG}"

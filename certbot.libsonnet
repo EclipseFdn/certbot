@@ -1,4 +1,5 @@
-local newCertbotDeployment(domains = [],) = [
+# certs is an array of array
+local newCertbotDeployment(certs = {},) = [
   {
     apiVersion: "batch/v1beta1",
     kind: "CronJob",
@@ -56,20 +57,29 @@ local newCertbotDeployment(domains = [],) = [
                   image: "certbot/certbot",
                   imagePullPolicy: "Always",
                   command: [ "/bin/sh", ],
-                  script:: |||
+                  certbotCertonly:: |||
                     certbot certonly \
                     --webroot \
                     --noninteractive \
                     --agree-tos \
                     --email webmaster@eclipse-foundation.org \
                     --webroot-path /usr/share/nginx/html \
-                    %s \
-                    && rm -f /usr/share/nginx/html/init \
-                    || rm -f /usr/share/nginx/html/init
-                  ||| % std.join(" \\\n", std.flatMap(function(x) ["-d %s" % x], domains)),
+                    --cert-name %s \
+                    --domains %s \
+                  |||,
+                  scripts:: [
+                    self.certbotCertonly % [
+                      certName, std.join(",", certs[certName])
+                    ] for certName in std.objectFields(certs)
+                  ],
                   args: [
-                    "-c",
-                    self.script,
+                    "-xc",
+                    "{ \\\n" 
+                    + std.join("; \\\n", self.scripts) 
+                    + "; \\\n"
+                    + "} \\\n"
+                    + "&& rm -f /usr/share/nginx/html/init \\\n"
+                    + "|| rm -f /usr/share/nginx/html/init",
                   ],
                   volumeMounts: [
                     {
@@ -198,7 +208,7 @@ local newCertbotDeployment(domains = [],) = [
         weight: 100
       }
     }
-  } for domain in domains 
+  } for certName in std.objectFields(certs) for domain in certs[certName]
 ];
 
 {

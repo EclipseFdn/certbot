@@ -2,7 +2,9 @@
 
 ## How to add a domain?
 
-Edit the script `gen-domain.sh` and add it to the list. Note that the given domain must have a proxy pass configured for port `80` as follow:
+Edit the file `certs.jsonnet` and add yours to the list. 
+
+Note that the every domain must have a proxy pass configured for port `80` as follow:
 
 ```nginx
 location /.well-known/acme-challenge {
@@ -10,24 +12,24 @@ location /.well-known/acme-challenge {
 }
 ```
 
-Also, ensure that the `Host` header is set via a `proxy_set_header` directive (may already be the case via inclusion of some proxy cache configuration file).
+Finally, ensure that the `Host` header is set via a `proxy_set_header` directive (it may already be the case via inclusion of some proxy cache configuration file).
 
 ## How to check the generated resources?
 
 ```
-./gen-domains.sh
+./gen-domains.sh certs.jsonnet
 ```
 
 ## How to deploy changes to configuration?
 
 ```
-./gen-domains.sh | kubectl apply -f -
+./gen-domains.sh certs.jsonnet | kubectl apply -f -
 ```
 
 ## How to manually trigger issue/renewal of managed certificates?
 
 ```
-JOB_NAME="certbot-manual-01"
+JOB_NAME="certbot-manual-${USERNAME}-01"
 kubectl create job -n foundation-internal-infra-certbot --from=cronjob/certbot ${JOB_NAME}
 kubectl wait --for=condition=complete -n foundation-internal-infra-certbot job/${JOB_NAME}
 ```
