@@ -17,13 +17,13 @@ Finally, ensure that the `Host` header is set via a `proxy_set_header` directive
 ## How to check the generated resources?
 
 ```
-./gen-domains.sh certs.jsonnet
+./gen-certbot-deploy.sh certs.jsonnet
 ```
 
 ## How to deploy changes to configuration?
 
 ```
-./gen-domains.sh certs.jsonnet | kubectl apply -f -
+./gen-certbot-deploy.sh certs.jsonnet | kubectl apply -f -
 ```
 
 ## How to manually trigger issue/renewal of managed certificates?
