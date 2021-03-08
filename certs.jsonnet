@@ -14,4 +14,8 @@
   "eclipseprojects.io": [ 
     "che.eclipseprojects.io", 
   ],
+
+  "eclipsecontent.org": [ 
+    "bugzillaattachments.eclipsecontent.org", 
+  ],
 }  
