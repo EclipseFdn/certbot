@@ -4,7 +4,7 @@
 
 Edit the file `certs.jsonnet` and add yours to the list. 
 
-Note that the every domain must have a proxy pass configured for port `80` as follow:
+It is assumed the domain DNS is operational, hostname(s) points to the nginx LB, and that a proxy pass configured for port `80` as follows is already in place and functional:
 
 ```nginx
 location /.well-known/acme-challenge {
@@ -45,3 +45,6 @@ Cleanup:
 ```
 kubectl delete -n foundation-internal-infra-certbot job/${JOB_NAME}
 ```
+
+## nginx
+Once the OKD job has run and certs have been created, update the nginx config file for the domain and apache/manifests/letsencrypt.pp. The next time puppet runs it should put the certs in the right place and off we go.  Infra 3966 (EF internal) has more background.
