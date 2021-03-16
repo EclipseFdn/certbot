@@ -18,4 +18,16 @@
   "eclipsecontent.org": [ 
     "bugzillaattachments.eclipsecontent.org", 
   ],
+  
+  "polarsys.org": [
+    "www.polarsys.org",
+    "wiki.polarsys.org",
+    "bugs.polarsys.org",
+    "ci.polarsys.org",
+    "hudson.polarsys.org",
+    "download.polarsys.org",
+    "archive.polarsys.org",
+  ],
+
+  
 }  
