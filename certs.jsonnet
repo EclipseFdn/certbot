@@ -18,4 +18,8 @@
   "eclipsecontent.org": [ 
     "bugzillaattachments.eclipsecontent.org", 
   ],
+  
+  "adoptium.org": [
+    "adoptium.io","adoptium.com",
+  ],
 }  
