@@ -7,6 +7,10 @@
   // certname will be the certificate CN and domain1, domain2 will be 
   // SAN for the cert
 
+  "adoptium.org": [
+    "adoptium.io","adoptium.com","adoptium.dev",
+  ],
+
   "test-cert": [ 
     "certbot.eclipse.org", 
   ], 
@@ -29,7 +33,4 @@
     "archive.polarsys.org",
   ],
 
-  "adoptium.org": [
-    "adoptium.io","adoptium.com",
-  ],
 }  
