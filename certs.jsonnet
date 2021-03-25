@@ -18,7 +18,7 @@
   "eclipsecontent.org": [ 
     "bugzillaattachments.eclipsecontent.org", 
   ],
-  
+
   "polarsys.org": [
     "www.polarsys.org",
     "wiki.polarsys.org",
@@ -29,5 +29,7 @@
     "archive.polarsys.org",
   ],
 
-  
+  "adoptium.org": [
+    "adoptium.io","adoptium.com",
+  ],
 }  
