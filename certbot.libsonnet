@@ -58,6 +58,9 @@ local newCertbotDeployment(certs = {},) = [
                   imagePullPolicy: "Always",
                   command: [ "/bin/sh", ],
                   certbotCertonly:: |||
+                    echo "******************************************************************************"
+                    echo "* Running certbot for %s (domains: %s)"
+                    echo "******************************************************************************"
                     certbot certonly \
                     --webroot \
                     --noninteractive \
@@ -69,6 +72,7 @@ local newCertbotDeployment(certs = {},) = [
                   |||,
                   scripts:: [
                     self.certbotCertonly % [
+                      certName, std.join(",", certs[certName]),
                       certName, std.join(",", certs[certName])
                     ] for certName in std.objectFields(certs)
                   ],
