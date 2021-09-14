@@ -32,5 +32,9 @@
     "download.polarsys.org",
     "archive.polarsys.org",
   ],
+  
+  "theiacon.org": [
+    "theiacon.io",
+  ],
 
 }  
