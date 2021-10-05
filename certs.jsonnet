@@ -36,5 +36,8 @@
   "theiacon.org": [
     "theiacon.io",
   ],
+  
+  "tracecompass.org": [
+  ],
 
 }  
