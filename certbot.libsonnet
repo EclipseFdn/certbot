@@ -72,14 +72,14 @@ local newCertbotDeployment(certs = {},) = [
                   |||,
                   scripts:: [
                     self.certbotCertonly % [
-                      certName, std.join(",", certs[certName]),
-                      certName, std.join(",", certs[certName])
+                      certName, certName + std.join(",", certs[certName]),
+                      certName, certName + std.join(",", certs[certName])
                     ] for certName in std.objectFields(certs)
                   ],
                   args: [
                     "-c",
-                    "{ \\\n" 
-                    + std.join("; \\\n", self.scripts) 
+                    "{ \\\n"
+                    + std.join("; \\\n", self.scripts)
                     + "; \\\n"
                     + "} \\\n"
                     + "&& rm -f /usr/share/nginx/html/init \\\n"
@@ -192,7 +192,7 @@ local newCertbotDeployment(certs = {},) = [
       ],
     },
   }
-] + [ 
+] + [
   {
     apiVersion: "route.openshift.io/v1",
     kind: "Route",
@@ -212,7 +212,7 @@ local newCertbotDeployment(certs = {},) = [
         weight: 100
       }
     }
-  } for certName in std.objectFields(certs) for domain in certs[certName]
+  } for certName in std.objectFields(certs) for domain in [certName] + certs[certName]
 ];
 
 {
