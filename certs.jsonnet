@@ -1,29 +1,31 @@
 {
   // This file is a object with 1 sub-object per certificate to generate
   // certname: [
-  //    domain1, 
+  //    domain1,
   //    domain2
   //  ],
-  // certname will be the certificate CN and domain1, domain2 will be 
+  // certname will be the certificate Common Name while and domain1, domain2 will be
   // SAN for the cert
 
   "adoptium.org": [
-    "adoptium.io","adoptium.com","adoptium.dev",
+    "adoptium.org",
+    "adoptium.io",
+    "adoptium.com",
+    "adoptium.dev",
   ],
 
-  "test-cert": [ 
-    "certbot.eclipse.org", 
-  ], 
-
-  "eclipseprojects.io": [ 
-    "che.eclipseprojects.io", 
+  "eclipseprojects.io": [
+    # eclipseprojects.io does not have DNS
+    "che.eclipseprojects.io",
   ],
-  
-  "eclipsecontent.org": [ 
-    "bugzillaattachments.eclipsecontent.org", 
+
+  "eclipsecontent.org": [
+    # eclipsecontent.org does not have DNS
+    "bugzillaattachments.eclipsecontent.org",
   ],
 
   "polarsys.org": [
+    "polarsys.org",
     "www.polarsys.org",
     "wiki.polarsys.org",
     "bugs.polarsys.org",
@@ -32,12 +34,14 @@
     "download.polarsys.org",
     "archive.polarsys.org",
   ],
-  
+
   "theiacon.org": [
+    "theiacon.org",
     "theiacon.io",
   ],
-  
+
   "tracecompass.org": [
+    "tracecompass.org",
   ],
 
-}  
+}

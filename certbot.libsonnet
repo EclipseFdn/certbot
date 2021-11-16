@@ -72,8 +72,8 @@ local newCertbotDeployment(certs = {},) = [
                   |||,
                   scripts:: [
                     self.certbotCertonly % [
-                      certName, certName + "," + std.join(",", certs[certName]),
-                      certName, certName + "," + std.join(",", certs[certName])
+                      certName, std.join(",", certs[certName]),
+                      certName, std.join(",", certs[certName])
                     ] for certName in std.objectFields(certs)
                   ],
                   args: [
