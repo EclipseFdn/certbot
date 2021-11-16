@@ -15,8 +15,6 @@
   ],
 
   "eclipseprojects.io": [
-    # eclipseprojects.io does not have DNS
-    "che.eclipseprojects.io",
   ],
 
   "eclipsecontent.org": [
