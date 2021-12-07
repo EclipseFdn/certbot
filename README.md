@@ -61,7 +61,7 @@ kubectl delete -n foundation-internal-infra-certbot job/${JOB_NAME}
 ## nginx
 Once the OKD job has run and certs have been created, update the nginx config file for the domain and apache/manifests/letsencrypt.pp. The next time puppet runs it should put the certs in the right place and off we go.  Infra 3966 (EF internal) has more background.
 
-## CloudFlare DNS API Token
+## CloudFlare DNS API Token (initial setup only)
 
 A Kubernetes secret must exist to be able to use CloudFlare API. The DNS API Token must be retrieved from the CloudFlare dashboard (roll it if it already exists) and put in a text file, e.g. `cloudflare_api_token.ini`
 
