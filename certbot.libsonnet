@@ -50,16 +50,80 @@ local newCertbotDeployment(certs = {},) = [
                     }
                   },
                 },
+                {
+                  name: "certbot-cloudflare",
+                  image: "certbot/dns-cloudflare:latest",
+                  imagePullPolicy: "Always",
+                  command: [ "/bin/sh", ],
+                  certbotCloudfare:: |||
+                    echo "******************************************************************************"
+                    echo "* Running certbot-cloudflare for %s (domains: %s)"
+                    echo "******************************************************************************"
+                    certbot certonly \
+                    --dns-cloudflare \
+                    --dns-cloudflare-credentials /run/secrets/certbot/cloudflare_api_key.ini \
+                    --noninteractive \
+                    --agree-tos \
+                    --email webmaster@eclipse-foundation.org \
+                    --preferred-challenges dns-01 \
+                    --cert-name %s \
+                    --domains %s \
+                  |||,
+                  scripts:: [
+                    self.certbotCloudfare % [
+                      certName, std.join(",", certs.cloudflare[certName]),
+                      certName, std.join(",", certs.cloudflare[certName])
+                    ] for certName in std.objectFields(certs.cloudflare)
+                  ],
+                  args: [
+                    "-c",
+                    "{ \\\n"
+                    + std.join("; \\\n", self.scripts)
+                    + "; \\\n"
+                    + "}",
+                  ],
+                  volumeMounts: [
+                    {
+                      mountPath: "/run/secrets/certbot",
+                      name: "cloudflare-api-token",
+                    },
+                    {
+                      mountPath: "/var/log/letsencrypt",
+                      name: "letsencrypt",
+                      subPath: "log",
+                    },
+                    {
+                      mountPath: "/etc/letsencrypt",
+                      name: "letsencrypt",
+                      subPath: "etc",
+                    },
+                    {
+                      mountPath: "/var/lib/letsencrypt",
+                      name: "letsencrypt",
+                      subPath: "lib",
+                    },
+                  ],
+                  resources: {
+                    requests: {
+                      memory: "256Mi",
+                      cpu: "500m"
+                    },
+                    limits: {
+                      memory: "1Gi",
+                      cpu: "2000m"
+                    }
+                  },
+                },
               ],
               containers: [
                 {
-                  name: "certbot",
-                  image: "certbot/certbot",
+                  name: "certbot-webroot",
+                  image: "certbot/certbot:latest",
                   imagePullPolicy: "Always",
                   command: [ "/bin/sh", ],
-                  certbotCertonly:: |||
+                  certbotWebrootonly:: |||
                     echo "******************************************************************************"
-                    echo "* Running certbot for %s (domains: %s)"
+                    echo "* Running certbot-webroot for %s (domains: %s)"
                     echo "******************************************************************************"
                     certbot certonly \
                     --webroot \
@@ -71,10 +135,10 @@ local newCertbotDeployment(certs = {},) = [
                     --domains %s \
                   |||,
                   scripts:: [
-                    self.certbotCertonly % [
-                      certName, std.join(",", certs[certName]),
-                      certName, std.join(",", certs[certName])
-                    ] for certName in std.objectFields(certs)
+                    self.certbotWebrootonly % [
+                      certName, std.join(",", certs.webroot[certName]),
+                      certName, std.join(",", certs.webroot[certName])
+                    ] for certName in std.objectFields(certs.webroot)
                   ],
                   args: [
                     "-c",
@@ -108,7 +172,7 @@ local newCertbotDeployment(certs = {},) = [
                   ],
                   resources: {
                     requests: {
-                      memory: "1Gi",
+                      memory: "256Mi",
                       cpu: "500m"
                     },
                     limits: {
@@ -164,6 +228,12 @@ local newCertbotDeployment(certs = {},) = [
                     claimName: "letsencrypt",
                   },
                 },
+                {
+                  name: "cloudflare-api-token",
+                  secret: {
+                    secretName: "cloudflare-api-token"
+                  },
+                },
               ],
             },
           },
@@ -212,7 +282,7 @@ local newCertbotDeployment(certs = {},) = [
         weight: 100
       }
     }
-  } for certName in std.objectFields(certs) for domain in [certName] + certs[certName]
+  } for certName in std.objectFields(certs.webroot) for domain in [certName] + certs.webroot[certName]
 ];
 
 {
