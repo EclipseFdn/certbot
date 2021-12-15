@@ -16,7 +16,6 @@
 
   "eclipseprojects.io": [
     "eclipseprojects.io",
-    "che.eclipseprojects.io",
   ],
 
   "eclipsecontent.org": [
