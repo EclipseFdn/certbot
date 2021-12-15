@@ -16,6 +16,10 @@
       "adoptium.dev",
     ],
 
+    "eclipse.foundation": [
+      "eclipse.foundation",
+    ],
+
     "eclipseprojects.io": [
       "eclipseprojects.io",
     ],
