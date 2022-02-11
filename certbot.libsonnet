@@ -1,7 +1,7 @@
 # certs is an array of array
 local newCertbotDeployment(certs = {},) = [
   {
-    apiVersion: "batch/v1beta1",
+    apiVersion: "batch/v1",
     kind: "CronJob",
     metadata: {
       namespace: "foundation-internal-infra-certbot",
@@ -61,7 +61,7 @@ local newCertbotDeployment(certs = {},) = [
                     echo "******************************************************************************"
                     certbot certonly \
                     --dns-cloudflare \
-                    --dns-cloudflare-credentials /run/secrets/certbot/cloudflare_api_key.ini \
+                    --dns-cloudflare-credentials /run/secrets/certbot/cloudflare_api_token.ini \
                     --noninteractive \
                     --agree-tos \
                     --email webmaster@eclipse-foundation.org \
