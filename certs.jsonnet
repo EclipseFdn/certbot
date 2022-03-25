@@ -19,6 +19,11 @@
     "eclipse.foundation": [
       "eclipse.foundation",
     ],
+    
+    "eclipseide.org": [
+      "eclipseide.org",
+      "www.eclipseide.org",
+    ],
 
     "eclipseprojects.io": [
       "eclipseprojects.io",
