@@ -27,6 +27,7 @@
 
     "eclipseprojects.io": [
       "eclipseprojects.io",
+      "websites.eclipseprojects.io",
     ],
 
     "polarsys.org": [
