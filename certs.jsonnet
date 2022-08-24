@@ -14,6 +14,10 @@
       "adoptium.io",
       "adoptium.com",
       "adoptium.dev",
+      "www.adoptium.org",
+      "www.adoptium.io",
+      "www.adoptium.com",
+      "www.adoptium.dev",
     ],
 
     "eclipse.foundation": [
