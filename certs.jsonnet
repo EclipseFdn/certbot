@@ -54,6 +54,20 @@
       "tracecompass.org",
     ],
 
+    "eclipse-pass.org": [
+      "eclipse-pass.org",
+      "www.eclipse-pass.org",
+      "demo.eclipse-pass.org",
+      "nightly.eclipse-pass.org",
+    ],
+
+    "eclipsepass.org": [
+      "eclipsepass.org",
+      "www.eclipsepass.org",
+      "demo.eclipsepass.org",
+      "nightly.eclipsepass.org",
+    ],
+
   },
 
   // This is for domains whose primary DNS is cloudflare. It can be wildcard.
