@@ -54,12 +54,12 @@
       "tracecompass.org",
     ],
 
-    "demo.eclipse-pass.org": [
+    "eclipse-pass.org": [
       "demo.eclipse-pass.org",
       "nightly.eclipse-pass.org",
     ],
 
-    "demo.eclipsepass.org": [
+    "eclipsepass.org": [
       "demo.eclipsepass.org",
       "nightly.eclipsepass.org",
     ],
