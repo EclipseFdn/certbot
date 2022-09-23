@@ -282,7 +282,7 @@ local newCertbotDeployment(certs = {},) = [
         weight: 100
       }
     }
-  } for certName in std.objectFields(certs.webroot) for domain in [certName] + certs.webroot[certName]
+  } for certName in std.objectFields(certs.webroot) for domain in std.set([certName] + certs.webroot[certName])
 ];
 
 {
