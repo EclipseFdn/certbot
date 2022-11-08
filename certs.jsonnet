@@ -64,6 +64,21 @@
       "nightly.eclipsepass.org",
     ],
 
+    "entrepreneurialopensource.org": [
+      "entrepreneurialopensource.org",
+      "www.entrepreneurialopensource.org",
+    ],
+
+    "entrepreneurialopensource.com": [
+      "entrepreneurialopensource.com",
+      "www.entrepreneurialopensource.com",
+    ],
+
+    "entrepreneurialopensource.net": [
+      "entrepreneurialopensource.net",
+      "www.entrepreneurialopensource.net",
+    ],
+
   },
 
   // This is for domains whose primary DNS is cloudflare. It can be wildcard.
