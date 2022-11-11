@@ -7,9 +7,7 @@ Edit the file `certs.jsonnet` and add yours to the list.
 It is assumed the domain DNS is operational, hostname(s) points to the nginx LB, and that a proxy pass configured for port `80` as follows is already in place and functional:
 
 ```nginx
-location /.well-known/acme-challenge {
-  proxy_pass  http://okd-ingress-insecure$request_uri;
-}
+  include /etc/nginx/default.d/default-letsencrypt-setup.conf
 ```
 
 Finally, ensure that the `Host` header is set via a `proxy_set_header` directive (it may already be the case via inclusion of some proxy cache configuration file).
