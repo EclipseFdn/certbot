@@ -78,6 +78,11 @@
       "entrepreneurialopensource.net",
       "www.entrepreneurialopensource.net",
     ],
+    
+    "eclip.se": [
+      "eclip.se",
+      "www.eclip.se",
+    ],
 
   },
 
