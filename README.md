@@ -68,5 +68,5 @@ dns_cloudflare_api_token=abcdefghijklmnopqrstuvwxyz0123456789
 ```
 
 ```
-kubectl create secret generic cloudflare-api-token --from-file=cloudflare_api_token.ini=cloudflare_api_token.ini
+kubectl create secret generic cloudflare-api-token --from-file=cloudflare_api_token.ini -n cloudflare_api_token.ini
 ```
