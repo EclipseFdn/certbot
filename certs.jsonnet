@@ -20,6 +20,11 @@
       "www.adoptium.dev",
     ],
 
+    "automotive-oss.org": [
+      "automotive-oss.org",
+      "www.automotive-oss.org",
+    ],
+
     "eclipse.foundation": [
       "eclipse.foundation",
     ],
