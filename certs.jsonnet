@@ -24,7 +24,11 @@
       "automotive-oss.org",
       "www.automotive-oss.org",
     ],
-
+    
+    "eclipse.dev": [
+      "eclipse.dev",
+    ],
+    
     "eclipse.foundation": [
       "eclipse.foundation",
     ],
