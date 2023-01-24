@@ -43,6 +43,11 @@
       "websites.eclipseprojects.io",
     ],
 
+    "planeteclipse.org": [
+      "planeteclipse.org",
+      "www.planeteclipse.org",
+    ],
+
     "polarsys.org": [
       "polarsys.org",
       "www.polarsys.org",
