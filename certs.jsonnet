@@ -105,5 +105,14 @@
     "eclipsecontent.org": [
       "*.eclipsecontent.org",
     ],
+    "matrix.eclipsecontent.org": [
+      "*.matrix.eclipsecontent.org",
+    ],
+    "chat.eclipsecontent.org": [
+      "*.chat.eclipsecontent.org",
+    ],
+    "matrix-media-repo.eclipsecontent.org": [
+      "*.matrix-media-repo.eclipsecontent.org",
+    ],
   },
 }
