@@ -112,6 +112,7 @@
       "*.chat.eclipsecontent.org",
     ],
     "matrix-media-repo.eclipsecontent.org": [
+      "matrix-media-repo.eclipsecontent.org",
       "*.matrix-media-repo.eclipsecontent.org",
     ],
   },
