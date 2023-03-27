@@ -61,7 +61,9 @@
 
     "theiacon.org": [
       "theiacon.org",
+      "www.theiacon.org",
       "theiacon.io",
+      "www.theiacon.io",
     ],
 
     "tracecompass.org": [
