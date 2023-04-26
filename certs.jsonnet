@@ -27,6 +27,7 @@
     
     "eclipse.dev": [
       "eclipse.dev",
+      "www.eclipse.dev",
     ],
     
     "eclipse.foundation": [
