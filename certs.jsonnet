@@ -34,6 +34,11 @@
       "eclipse.foundation",
     ],
     
+    "eclipsecon.org": [
+      "eclipsecon.org",
+      "www.eclipsecon.org",
+    ],
+
     "eclipseide.org": [
       "eclipseide.org",
       "www.eclipseide.org",
