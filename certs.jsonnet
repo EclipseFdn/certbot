@@ -49,6 +49,11 @@
       "websites.eclipseprojects.io",
     ],
 
+    "jakartablogs.ee": [
+      "jakartablogs.ee",
+      "www.jakartablogs.ee",
+    ],
+
     "planeteclipse.org": [
       "planeteclipse.org",
       "www.planeteclipse.org",
