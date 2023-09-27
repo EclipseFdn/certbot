@@ -122,9 +122,12 @@
     "chat.eclipsecontent.org": [
       "*.chat.eclipsecontent.org",
     ],
-    "matrix-media-repo.eclipsecontent.org": [
-      "matrix-media-repo-staging.eclipsecontent.org",
+    "wildcard.matrix-media-repo.eclipsecontent.org": [
       "*.matrix-media-repo.eclipsecontent.org",
+    ],
+    "matrix-media-repo.eclipsecontent.org": [
+      "matrix-media-repo.eclipsecontent.org",
+      "matrix-media-repo-staging.eclipsecontent.org",
     ],
   },
 }
