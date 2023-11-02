@@ -54,6 +54,11 @@
       "www.jakartablogs.ee",
     ],
 
+    "opencode-x.org": [
+      "opencode-x.org",
+      "www.opencode-x.org",
+    ],
+
     "planeteclipse.org": [
       "planeteclipse.org",
       "www.planeteclipse.org",
