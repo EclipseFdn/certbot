@@ -80,6 +80,11 @@
       "theiacon.io",
     ],
 
+    "threadx.io": [
+      "threadx.io",
+      "www.threadx.io",
+    ],
+
     "tracecompass.org": [
       "tracecompass.org",
     ],
