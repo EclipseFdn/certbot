@@ -61,7 +61,7 @@ local newCertbotDeployment(certs = {},) = [
                     echo "******************************************************************************"
                     certbot certonly \
                     --dns-cloudflare \
-                    --dns-cloudflare-credentials /run/secrets/certbot/cloudflare_api_token.ini \
+                    --dns-cloudflare-credentials /run/secrets/cloudflare/cloudflare_api_token.ini \
                     --noninteractive \
                     --agree-tos \
                     --email webmaster@eclipse-foundation.org \
@@ -84,7 +84,7 @@ local newCertbotDeployment(certs = {},) = [
                   ],
                   volumeMounts: [
                     {
-                      mountPath: "/run/secrets/certbot",
+                      mountPath: "/run/secrets/cloudflare",
                       name: "cloudflare-api-token",
                     },
                     {
