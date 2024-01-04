@@ -146,7 +146,7 @@ local newCertbotDeployment(certs = {},) = [
                     + std.join("; \\\n", self.scripts)
                     + "; \\\n"
                     + "} \\\n"
-                    + "&& rm -f /usr/share/nginx/html/init \\\n"
+                    + "&& { rm -f /usr/share/nginx/html/init ; wget --spider -q $(head -n 1 /run/secrets/betteruptime/url) ; } \\\n"
                     + "|| rm -f /usr/share/nginx/html/init",
                   ],
                   volumeMounts: [
@@ -168,6 +168,10 @@ local newCertbotDeployment(certs = {},) = [
                       mountPath: "/var/lib/letsencrypt",
                       name: "letsencrypt",
                       subPath: "lib",
+                    },
+                    {
+                      mountPath: "/run/secrets/betteruptime",
+                      name: "betteruptime-heartbeat",
                     },
                   ],
                   resources: {
@@ -232,6 +236,12 @@ local newCertbotDeployment(certs = {},) = [
                   name: "cloudflare-api-token",
                   secret: {
                     secretName: "cloudflare-api-token"
+                  },
+                },
+                {
+                  name: "betteruptime-heartbeat",
+                  secret: {
+                    secretName: "betteruptime-heartbeat"
                   },
                 },
               ],
