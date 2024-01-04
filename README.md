@@ -39,7 +39,7 @@ Edit the `Edit zone DNS` token at [CloudFlare](https://dash.cloudflare.com/profi
 ## How to manually trigger issue/renewal of managed certificates?
 
 ```
-JOB_NAME="certbot-manual-${USERNAME}-01"
+JOB_NAME="certbot-manual-${USERNAME}-$(date +%s)"
 kubectl create job -n foundation-internal-infra-certbot --from=cronjob/certbot ${JOB_NAME}
 kubectl wait --for=condition=complete -n foundation-internal-infra-certbot job/${JOB_NAME}
 ```
