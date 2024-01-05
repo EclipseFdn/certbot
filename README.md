@@ -30,6 +30,13 @@ Edit the `Edit zone DNS` token at [CloudFlare](https://dash.cloudflare.com/profi
 ./gen-certbot-deploy.sh certs.jsonnet
 ```
 
+You can debug the scripts that will be executed with the help of `yq`, like:
+
+```
+./gen-certbot-deploy.sh certs.jsonnet | yq 'select( .kind == "ConfigMap").data["webroot.sh"]'
+./gen-certbot-deploy.sh certs.jsonnet | yq 'select( .kind == "ConfigMap").data["cloudflare.sh"]'
+```
+
 ## How to deploy changes to configuration?
 
 ```
@@ -57,6 +64,7 @@ kubectl delete -n foundation-internal-infra-certbot job/${JOB_NAME}
 ```
 
 ## nginx
+
 Once the OKD job has run and certs have been created, update the nginx config file for the domain and apache/manifests/letsencrypt.pp. The next time puppet runs it should put the certs in the right place and off we go.  Infra 3966 (EF internal) has more background.
 
 ## CloudFlare DNS API Token (initial setup only)
@@ -69,4 +77,12 @@ dns_cloudflare_api_token=abcdefghijklmnopqrstuvwxyz0123456789
 
 ```
 kubectl create secret generic cloudflare-api-token --from-file=cloudflare_api_token.ini -n cloudflare_api_token.ini
+```
+
+## BetterUptime's heartbeat URL (initial setup only)
+
+Get the URL of the heartbeat from BetterUptime so that the cronjob can ping when it successfully renew all the certificates.
+
+```
+kubectl create secret generic betteruptime-heartbeat --from-literal=url='https://uptime.betterstack.com/api/v1/heartbeat/abcdefghijklmn012345678
 ```

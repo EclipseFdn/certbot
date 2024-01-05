@@ -1,3 +1,5 @@
+local scripts = import "scripts.libsonnet";
+
 # certs is an array of array
 local newCertbotDeployment(certs = {},) = [
   {
@@ -54,101 +56,7 @@ local newCertbotDeployment(certs = {},) = [
                   name: "certbot-cloudflare",
                   image: "certbot/dns-cloudflare:latest",
                   imagePullPolicy: "Always",
-                  command: [ "/bin/sh", ],
-                  certbotCloudfare:: |||
-                    echo "******************************************************************************"
-                    echo "* Running certbot-cloudflare for %s (domains: %s)"
-                    echo "******************************************************************************"
-                    certbot certonly \
-                    --dns-cloudflare \
-                    --dns-cloudflare-credentials /run/secrets/cloudflare/cloudflare_api_token.ini \
-                    --noninteractive \
-                    --agree-tos \
-                    --email webmaster@eclipse-foundation.org \
-                    --preferred-challenges dns-01 \
-                    --cert-name %s \
-                    --domains %s \
-                  |||,
-                  scripts:: [
-                    self.certbotCloudfare % [
-                      certName, std.join(",", certs.cloudflare[certName]),
-                      certName, std.join(",", certs.cloudflare[certName])
-                    ] for certName in std.objectFields(certs.cloudflare)
-                  ],
-                  args: [
-                    "-c",
-                    "{ \\\n"
-                    + std.join("; \\\n", self.scripts)
-                    + "; \\\n"
-                    + "}",
-                  ],
-                  volumeMounts: [
-                    {
-                      mountPath: "/run/secrets/cloudflare",
-                      name: "cloudflare-api-token",
-                    },
-                    {
-                      mountPath: "/var/log/letsencrypt",
-                      name: "letsencrypt",
-                      subPath: "log",
-                    },
-                    {
-                      mountPath: "/etc/letsencrypt",
-                      name: "letsencrypt",
-                      subPath: "etc",
-                    },
-                    {
-                      mountPath: "/var/lib/letsencrypt",
-                      name: "letsencrypt",
-                      subPath: "lib",
-                    },
-                  ],
-                  resources: {
-                    requests: {
-                      memory: "256Mi",
-                      cpu: "500m"
-                    },
-                    limits: {
-                      memory: "1Gi",
-                      cpu: "2000m"
-                    }
-                  },
-                },
-              ],
-              containers: [
-                {
-                  name: "certbot-webroot",
-                  image: "certbot/certbot:latest",
-                  imagePullPolicy: "Always",
-                  command: [ "/bin/sh", ],
-                  certbotWebrootonly:: |||
-                    echo "******************************************************************************"
-                    echo "* Running certbot-webroot for %s (domains: %s)"
-                    echo "******************************************************************************"
-                    certbot certonly \
-                    --webroot \
-                    --noninteractive \
-                    --agree-tos \
-                    --email webmaster@eclipse-foundation.org \
-                    --webroot-path /usr/share/nginx/html \
-                    --cert-name %s \
-                    --domains %s \
-                  |||,
-                  scripts:: [
-                    self.certbotWebrootonly % [
-                      certName, std.join(",", certs.webroot[certName]),
-                      certName, std.join(",", certs.webroot[certName])
-                    ] for certName in std.objectFields(certs.webroot)
-                  ],
-                  args: [
-                    "-c",
-                    "{ \\\n"
-                    + std.join("; \\\n", self.scripts)
-                    + "; \\\n"
-                    + "} \\\n"
-                    + "&& { rm -f /usr/share/nginx/html/init ; wget --spider -q $(head -n 1 /run/secrets/betteruptime/url) ; } \\\n"
-                    + "|| rm -f /usr/share/nginx/html/init",
-                  ],
+                  command: [ "/var/lib/certbot-scripts/cloudflare.sh", ],
                   volumeMounts: [
                     {
                       mountPath: "/usr/share/nginx/html",
@@ -168,6 +76,57 @@ local newCertbotDeployment(certs = {},) = [
                       mountPath: "/var/lib/letsencrypt",
                       name: "letsencrypt",
                       subPath: "lib",
+                    },
+                    {
+                      name: "certbot-scripts",
+                      mountPath: "/var/lib/certbot-scripts",
+                    },
+                    {
+                      mountPath: "/run/secrets/cloudflare",
+                      name: "cloudflare-api-token",
+                    },
+                  ],
+                  resources: {
+                    requests: {
+                      memory: "256Mi",
+                      cpu: "500m"
+                    },
+                    limits: {
+                      memory: "1Gi",
+                      cpu: "2000m"
+                    }
+                  },
+                },
+              ],
+              containers: [
+                {
+                  name: "certbot-webroot",
+                  image: "certbot/certbot:latest",
+                  imagePullPolicy: "Always",
+                  command: [ "/var/lib/certbot-scripts/webroot.sh", ],
+                  volumeMounts: [
+                    {
+                      mountPath: "/usr/share/nginx/html",
+                      name: "webroot",
+                    },
+                    {
+                      mountPath: "/var/log/letsencrypt",
+                      name: "letsencrypt",
+                      subPath: "log",
+                    },
+                    {
+                      mountPath: "/etc/letsencrypt",
+                      name: "letsencrypt",
+                      subPath: "etc",
+                    },
+                    {
+                      mountPath: "/var/lib/letsencrypt",
+                      name: "letsencrypt",
+                      subPath: "lib",
+                    },
+                    {
+                      name: "certbot-scripts",
+                      mountPath: "/var/lib/certbot-scripts",
                     },
                     {
                       mountPath: "/run/secrets/betteruptime",
@@ -233,6 +192,23 @@ local newCertbotDeployment(certs = {},) = [
                   },
                 },
                 {
+                  name: "certbot-scripts",
+                  configMap: {
+                    name: "certbot-scripts",
+                    defaultMode: std.parseOctal("0500"),
+                    items: [
+                      {
+                        key: "webroot.sh",
+                        path: "webroot.sh",
+                      },
+                      {
+                        key: "cloudflare.sh",
+                        path: "cloudflare.sh",
+                      },
+                    ],
+                  },
+                },
+                {
                   name: "cloudflare-api-token",
                   secret: {
                     secretName: "cloudflare-api-token"
@@ -290,9 +266,22 @@ local newCertbotDeployment(certs = {},) = [
         kind: "Service",
         name: "certbot",
         weight: 100
-      }
-    }
+      },
+    },
   } for certName in std.objectFields(certs.webroot) for domain in std.set([certName] + certs.webroot[certName])
+] + [
+  {
+    apiVersion: "v1",
+    kind: "ConfigMap",
+    metadata: {
+      namespace: "foundation-internal-infra-certbot",
+      name: "certbot-scripts",
+    },
+    data: {
+      "webroot.sh": scripts.webroot(certs.webroot),
+      "cloudflare.sh": scripts.cloudflare(certs.cloudflare),
+    },
+  },
 ];
 
 {
