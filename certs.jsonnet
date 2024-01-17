@@ -25,11 +25,6 @@
       "www.automotive-oss.org",
     ],
     
-    "eclipse.dev": [
-      "eclipse.dev",
-      "www.eclipse.dev",
-    ],
-    
     "eclipse.foundation": [
       "eclipse.foundation",
     ],
