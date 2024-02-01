@@ -195,7 +195,7 @@ local newCertbotDeployment(certs = {},) = [
                   name: "certbot-scripts",
                   configMap: {
                     name: "certbot-scripts",
-                    defaultMode: std.parseOctal("0500"),
+                    defaultMode: std.parseOctal("0550"),
                     items: [
                       {
                         key: "webroot.sh",
