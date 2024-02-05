@@ -79,7 +79,8 @@ local newCertbotDeployment(certs = {},) = [
                     },
                     {
                       name: "certbot-scripts",
-                      mountPath: "/var/lib/certbot-scripts",
+                      mountPath: "/var/lib/certbot-scripts/cloudflare.sh",
+                      subPath: "cloudflare.sh",
                     },
                     {
                       mountPath: "/run/secrets/cloudflare",
