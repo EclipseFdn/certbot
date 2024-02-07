@@ -32,8 +32,6 @@
     "eclipsecon.org": [
       "eclipsecon.org",
       "www.eclipsecon.org",
-      "eclipseconverge.org",
-      "www.eclipseconverge.org",
     ],
 
     "eclipseide.org": [
