@@ -24,7 +24,11 @@
       "automotive-oss.org",
       "www.automotive-oss.org",
     ],
-    
+
+   "archive.automotive-oss.org": [
+      "archive.automotive-oss.org",
+    ], 
+   
     "eclipse.foundation": [
       "eclipse.foundation",
     ],
