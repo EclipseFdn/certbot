@@ -74,13 +74,6 @@
       "archive.polarsys.org",
     ],
 
-    "theiacon.org": [
-      "theiacon.org",
-      "www.theiacon.org",
-      "theiacon.io",
-      "www.theiacon.io",
-    ],
-
     "threadx.io": [
       "threadx.io",
       "www.threadx.io",
