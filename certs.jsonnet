@@ -22,7 +22,6 @@
 
     "automotive-oss.org": [
       "automotive-oss.org",
-      "www.automotive-oss.org",
     ],
 
    "archive.automotive-oss.org": [
@@ -51,11 +50,6 @@
     "jakartablogs.ee": [
       "jakartablogs.ee",
       "www.jakartablogs.ee",
-    ],
-
-    "opencode-x.org": [
-      "opencode-x.org",
-      "www.opencode-x.org",
     ],
 
     "planeteclipse.org": [
