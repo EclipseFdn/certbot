@@ -74,6 +74,10 @@
       "archive.polarsys.org",
     ],
 
+    "store.adoptium.net": [
+      "store.adoptium.net",
+    ],
+
     "threadx.io": [
       "threadx.io",
       "www.threadx.io",
@@ -132,6 +136,14 @@
     "matrix-media-repo.eclipsecontent.org": [
       "matrix-media-repo.eclipsecontent.org",
       "matrix-media-repo-staging.eclipsecontent.org",
+    ],
+    "orcwg.io": [
+      "orcwg.io",
+      "www.orcwg.io",
+    ],
+    "orcwg.org": [
+      "orcwg.org",
+      "www.orcwg.org",
     ],
   },
 }
