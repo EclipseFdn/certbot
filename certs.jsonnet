@@ -111,6 +111,15 @@
       "www.eclip.se",
     ],
 
+    "orcwg.io": [
+      "orcwg.io",
+      "www.orcwg.io",
+    ],
+
+    "orcwg.org": [
+      "orcwg.org",
+      "www.orcwg.org",
+    ],
   },
 
   // This is for domains whose primary DNS is cloudflare. It can be wildcard.
@@ -130,14 +139,6 @@
     "matrix-media-repo.eclipsecontent.org": [
       "matrix-media-repo.eclipsecontent.org",
       "matrix-media-repo-staging.eclipsecontent.org",
-    ],
-    "orcwg.io": [
-      "orcwg.io",
-      "www.orcwg.io",
-    ],
-    "orcwg.org": [
-      "orcwg.org",
-      "www.orcwg.org",
     ],
   },
 }
