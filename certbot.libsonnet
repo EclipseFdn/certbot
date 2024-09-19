@@ -3,6 +3,23 @@ local scripts = import "scripts.libsonnet";
 # certs is an array of array
 local newCertbotDeployment(certs = {},) = [
   {
+    apiVersion: "v1",
+    kind: "PersistentVolumeClaim",
+    metadata: {
+      namespace: "foundation-internal-infra-certbot",
+      name: "letsencrypt",
+    },
+    spec: {
+      accessModes: [ "ReadWriteMany" ],
+      storageClassName: "cephfs",
+      resources: {
+        requests: {
+          storage: "100Mi",
+        },
+      },
+    },
+  },
+  {
     apiVersion: "batch/v1",
     kind: "CronJob",
     metadata: {
