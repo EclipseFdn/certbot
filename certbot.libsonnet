@@ -273,6 +273,9 @@ local newCertbotDeployment(certs = {},) = [
     metadata: {
       namespace: "foundation-internal-infra-certbot",
       name: "acme-challenge-%s" % std.strReplace(domain, ".", "-"),
+      annotations: {
+        "haproxy.router.openshift.io/disable_cookies": "true",
+      },
     },
     spec: {
       host: domain,
