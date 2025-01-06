@@ -10,11 +10,11 @@ local newCertbotDeployment(certs = {},) = [
       name: "letsencrypt",
     },
     spec: {
-      accessModes: [ "ReadWriteMany" ],
-      storageClassName: "cephfs",
+      accessModes: [ "ReadWriteOnce" ],
+      storageClassName: "cephfs-2repl",
       resources: {
         requests: {
-          storage: "100Mi",
+          storage: "500Gi",
         },
       },
     },
