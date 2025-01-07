@@ -72,6 +72,11 @@
       "threadx.io",
       "www.threadx.io",
     ],
+    
+    "threadxalliance.org": [
+      "threadxalliance.org",
+      "www.threadxalliance.org",
+    ],
 
     "tracecompass.org": [
       "tracecompass.org",
