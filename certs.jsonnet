@@ -52,6 +52,11 @@
       "www.jakartablogs.ee",
     ],
 
+    "openhwfoundation.org": [
+      "openhwfoundation.org",
+      "www.openhwfoundation.org",
+    ],
+
     "planeteclipse.org": [
       "planeteclipse.org",
       "www.planeteclipse.org",
