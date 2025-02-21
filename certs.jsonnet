@@ -126,6 +126,11 @@
       "orcwg.org",
       "www.orcwg.org",
     ],
+
+    "occtet.eu": [
+      "occtet.eu",
+      "www.occtet.eu",
+    ],
   },
 
   // This is for domains whose primary DNS is cloudflare. It can be wildcard.
