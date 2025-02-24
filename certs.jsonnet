@@ -117,11 +117,6 @@
       "www.eclip.se",
     ],
 
-    "orcwg.io": [
-      "orcwg.io",
-      "www.orcwg.io",
-    ],
-
     "orcwg.org": [
       "orcwg.org",
       "www.orcwg.org",
