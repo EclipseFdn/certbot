@@ -45,6 +45,7 @@
     "eclipseprojects.io": [
       "eclipseprojects.io",
       "websites.eclipseprojects.io",
+      "ditto.eclipseprojects.io",
     ],
 
     "jakartablogs.ee": [
