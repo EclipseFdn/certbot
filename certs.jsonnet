@@ -126,6 +126,7 @@
     "occtet.eu": [
       "occtet.eu",
       "www.occtet.eu",
+      "outreach.occtet.eu",
     ],
   },
 
