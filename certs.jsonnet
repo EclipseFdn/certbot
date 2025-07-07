@@ -82,6 +82,7 @@
     "threadxalliance.org": [
       "threadxalliance.org",
       "www.threadxalliance.org",
+      "staging.threadxalliance.org",
     ],
 
     "tracecompass.org": [
