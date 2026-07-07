@@ -79,6 +79,11 @@ dns_cloudflare_api_token=abcdefghijklmnopqrstuvwxyz0123456789
 kubectl create secret generic cloudflare-api-token --from-file=cloudflare_api_token.ini -n cloudflare_api_token.ini
 ```
 
+To update the cert 'inline'(ie: if it's been rolled)
+```
+kubectl get secret cloudflare-api-token -o json | jq --arg foo "$(echo -n dns_cloudflare_api_token=$TOKEN | base64 -w 0)" '.data["cloudflare_api_token.ini"]=$foo' | kubectl apply -f -
+```
+
 ## BetterUptime's heartbeat URL (initial setup only)
 
 Get the URL of the heartbeat from BetterUptime so that the cronjob can ping when it successfully renew all the certificates.
