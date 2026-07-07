@@ -56,6 +56,7 @@
     "openhwfoundation.org": [
       "openhwfoundation.org",
       "www.openhwfoundation.org",
+      "mattermost.openhwfoundation.org",
     ],
 
     "planeteclipse.org": [
