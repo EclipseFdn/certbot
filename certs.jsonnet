@@ -148,5 +148,9 @@
       "matrix-media-repo.eclipsecontent.org",
       "matrix-media-repo-staging.eclipsecontent.org",
     ],
+    "jakarta.ee": [
+      "jakarta.ee",
+      "*.jakarta.ee",
+    ],
   },
 }
