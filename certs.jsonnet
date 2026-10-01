@@ -152,5 +152,9 @@
       "jakarta.ee",
       "*.jakarta.ee",
     ],
+    "otterdog.eclipsecontent.org": [
+      "otterdog.eclipsecontent.org",
+      "*.otterdog.eclipsecontent.org",
+    ],
   },
 }
