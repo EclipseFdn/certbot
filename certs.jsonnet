@@ -53,6 +53,10 @@
       "www.jakartablogs.ee",
     ],
 
+    "ocx-africa.opensourceglobalvoices.org": [
+      "ocx-africa.opensourceglobalvoices.org",
+    ],
+
     "openhwfoundation.org": [
       "www.openhwfoundation.org",
       "mattermost.openhwfoundation.org",
